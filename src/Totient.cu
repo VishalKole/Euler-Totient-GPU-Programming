@@ -10,23 +10,30 @@ __shared__ unsigned long long int shrCount [NT];
 extern "C" __global__ void ComputeTotient(unsigned long long int N){
 
     int thr, size, rank;
-    unsigned long long int count;
+    unsigned long long int count=0, b, temp;
 
-    thr = threadIdx.x;
     size = gridDim.x*NT;
-    rank = blockIdx.x*NT + thr;
+    rank = blockIdx.x*NT + threadIdx.x;
 
-    count = 0;
-    int temp;
+    for (unsigned long long int a = rank; a < N; a += size){
+    b=N;
 
-    for (unsigned long long int i = rank; i < N; i += size){
-        while (rank != 0) {
-            temp = rank;
-            rank = p % rank;
-            p = temp;
+    //    while(a != b){
+    //            if( a > b){
+    //               a = a - b;}
+    //            else{
+    //               b = b - a;}
+    //            }
+
+        while (b != 0){
+            temp = b;
+            b = a % b;
+            a = temp;
         }
-        if(p==1)
-        ++count;
+
+
+        if(a==1){
+        ++count;}
     }
 
  // Shared memory parallel reduction within thread block.

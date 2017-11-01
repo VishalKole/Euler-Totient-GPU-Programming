@@ -3,7 +3,6 @@ import edu.rit.gpu.Kernel;
 import edu.rit.gpu.Gpu;
 import edu.rit.gpu.GpuLongVbl;
 import edu.rit.gpu.Module;
-import edu.rit.pj2.Task;
 
 public class Totient extends Task {
 
@@ -25,7 +24,7 @@ public class Totient extends Task {
         gpu.ensureComputeCapability(2, 0);
 
         // Set up GPU counter variable.
-        Module module = gpu.getModule("/f/Totient.ptx");
+        Module module = gpu.getModule("Totient.ptx");
         GpuLongVbl count = module.getLongVbl("devCount");
 
         count.item = 0;
@@ -37,7 +36,7 @@ public class Totient extends Task {
 
         // Print results.
         count.devToHost();
-        System.out.printf("pi = %d", count.item);
+        System.out.println(count.item);
 
     }
 
