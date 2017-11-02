@@ -38,6 +38,8 @@ public class Totient extends Task {
         count.devToHost();
         System.out.println(count.item);
 
+
+        System.out.println("final");
     }
 
     /**

@@ -19,15 +19,13 @@ extern "C" __global__ void ComputeTotient(unsigned long long int N){
     for (unsigned long long int x = rank; x < N; x += size){
     a=x;
     b=N;
-
-        while (b != 0){
+        while (b > 0){
             temp = b;
             b = a % b;
             a = temp;
         }
-
-        if(a==1){
-        ++count;}
+        if(a==1)
+        ++count;
     }
 
  // Shared memory parallel reduction within thread block.
