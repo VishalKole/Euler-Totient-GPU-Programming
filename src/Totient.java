@@ -3,6 +3,8 @@ import edu.rit.gpu.Kernel;
 import edu.rit.gpu.Gpu;
 import edu.rit.gpu.GpuLongVbl;
 import edu.rit.gpu.Module;
+import edu.rit.gpu.CacheConfig;
+
 
 public class Totient extends Task {
 
@@ -32,6 +34,7 @@ public class Totient extends Task {
         TotientKernel kernel = module.getKernel(TotientKernel.class);
         kernel.setBlockDim(1024);
         kernel.setGridDim(gpu.getMultiprocessorCount());
+        kernel.setCacheConfig (CacheConfig.CU_FUNC_CACHE_PREFER_SHARED);
         kernel.ComputeTotient(N);
 
         // Print results.
