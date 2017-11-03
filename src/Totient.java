@@ -19,7 +19,7 @@ public class Totient extends Task {
 
     public void main(String[] args) throws Exception {
 
-        long N = Long.parseLong(args[0]);
+        long N = ValidateInput(args);
 
         // Initialize GPU.
         Gpu gpu = Gpu.gpu();
@@ -41,6 +41,27 @@ public class Totient extends Task {
         count.devToHost();
         System.out.println(count.item);
 
+    }
+
+    private long ValidateInput(String input[]) throws Exception {
+
+        if (input.length != 1)
+            throw new IllegalArgumentException("Arguments are not exactly equal to one.");
+
+        if (!input[0].matches("[0-9]+"))
+            throw new IllegalArgumentException("Argument is not a number and contains other characters or" +
+                    " special characters.");
+        long number;
+        try{
+            number = Long.parseLong(input[0]);
+        }
+        catch (Exception e){
+            throw new IllegalArgumentException("Value should be in the range from 1 to 9,223,372,036,854,775,808. ");
+        }
+        if ((number < 1))
+            throw new IllegalArgumentException("Invalid number to calculate Totient. should be greater than 0. ");
+
+        return number;
     }
 
     /**
